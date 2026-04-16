@@ -1,10 +1,15 @@
 import React, { useState, useRef, memo } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { ChromePicker } from 'react-color'
-import { Plus, Trash2, Download, Sparkles, User, Briefcase, GraduationCap, Code, Palette, Zap, Type, MoveVertical, Image, Layout, Layers } from 'lucide-react'
+import { Plus, Trash2, Download, Sparkles, User, Briefcase, GraduationCap, Code, Palette, Zap, Type, MoveVertical, Image, Layout, Layers, Square, Columns, Circle, AlignLeft, Crown } from 'lucide-react'
 import ClassicTemplate from './templates/ClassicTemplate'
 import ModernTemplate from './templates/ModernTemplate'
 import CreativeTemplate from './templates/CreativeTemplate'
+import MinimalTemplate from './templates/MinimalTemplate'
+import TwoColumnTemplate from './templates/TwoColumnTemplate'
+import BoldTemplate from './templates/BoldTemplate'
+import TimelineTemplate from './templates/TimelineTemplate'
+import ExecutiveTemplate from './templates/ExecutiveTemplate'
 import { downloadPDF } from './utils/downloadPDF'
 import axios from 'axios'
 
@@ -16,10 +21,26 @@ const FONT_OPTIONS = [
 ]
 
 const TEMPLATES = [
-  { id: 'classic', name: 'Classic', icon: Layout, component: ClassicTemplate },
-  { id: 'modern', name: 'Modern', icon: Layers, component: ModernTemplate },
-  { id: 'creative', name: 'Creative', icon: Sparkles, component: CreativeTemplate }
+  { id: 'classic', name: 'Classic', icon: Layout },
+  { id: 'modern', name: 'Modern', icon: Layers },
+  { id: 'creative', name: 'Creative', icon: Sparkles },
+  { id: 'minimal', name: 'Minimal', icon: Square },
+  { id: 'two-column', name: '2 Column', icon: Columns },
+  { id: 'bold', name: 'Bold', icon: Circle },
+  { id: 'timeline', name: 'Timeline', icon: AlignLeft },
+  { id: 'executive', name: 'Executive', icon: Crown }
 ]
+
+const TEMPLATE_COMPONENTS = {
+  classic: ClassicTemplate,
+  modern: ModernTemplate,
+  creative: CreativeTemplate,
+  minimal: MinimalTemplate,
+  'two-column': TwoColumnTemplate,
+  bold: BoldTemplate,
+  timeline: TimelineTemplate,
+  executive: ExecutiveTemplate
+}
 
 function ResumeBuilder() {
   const [themeColor, setThemeColor] = useState('#6366f1')
@@ -103,14 +124,8 @@ function ResumeBuilder() {
       }
     }
 
-    switch (selectedTemplate) {
-      case 'modern':
-        return <ModernTemplate {...templateProps} />
-      case 'creative':
-        return <CreativeTemplate {...templateProps} />
-      default:
-        return <ClassicTemplate {...templateProps} />
-    }
+    const TemplateComponent = TEMPLATE_COMPONENTS[selectedTemplate] || ClassicTemplate
+    return <TemplateComponent {...templateProps} />
   }
 
   return (
@@ -363,7 +378,7 @@ function ResumeBuilder() {
                   </div>
                   <h2 className="text-2xl font-bold">Choose Template</h2>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-4 gap-3">
                   {TEMPLATES.map((tmpl) => {
                     const Icon = tmpl.icon
                     return (
@@ -371,14 +386,14 @@ function ResumeBuilder() {
                         key={tmpl.id}
                         type="button"
                         onClick={() => setSelectedTemplate(tmpl.id)}
-                        className={`p-4 rounded-2xl border-2 transition-all ${
+                        className={`p-3 rounded-xl border-2 transition-all ${
                           selectedTemplate === tmpl.id 
                             ? 'border-indigo-500 bg-indigo-500/20' 
                             : 'border-slate-700 hover:border-slate-600'
                         }`}
                       >
-                        <Icon size={24} className={`mx-auto mb-2 ${selectedTemplate === tmpl.id ? 'text-indigo-400' : 'text-slate-500'}`} />
-                        <span className="text-sm font-medium block">{tmpl.name}</span>
+                        <Icon size={20} className={`mx-auto mb-1 ${selectedTemplate === tmpl.id ? 'text-indigo-400' : 'text-slate-500'}`} />
+                        <span className="text-xs font-medium block">{tmpl.name}</span>
                       </button>
                     )
                   })}
