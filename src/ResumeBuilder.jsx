@@ -202,35 +202,6 @@ function ResumeBuilder() {
 
               <section className="glass-card p-8 rounded-3xl group">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="p-3 rounded-2xl bg-rose-500/20 text-rose-400">
-                    <Layers size={24} />
-                  </div>
-                  <h2 className="text-2xl font-bold">Choose Template</h2>
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                  {TEMPLATES.map((tmpl) => {
-                    const Icon = tmpl.icon
-                    return (
-                      <button
-                        key={tmpl.id}
-                        type="button"
-                        onClick={() => setSelectedTemplate(tmpl.id)}
-                        className={`p-4 rounded-2xl border-2 transition-all ${
-                          selectedTemplate === tmpl.id 
-                            ? 'border-indigo-500 bg-indigo-500/20' 
-                            : 'border-slate-700 hover:border-slate-600'
-                        }`}
-                      >
-                        <Icon size={24} className={`mx-auto mb-2 ${selectedTemplate === tmpl.id ? 'text-indigo-400' : 'text-slate-500'}`} />
-                        <span className="text-sm font-medium block">{tmpl.name}</span>
-                      </button>
-                    )
-                  })}
-                </div>
-              </section>
-
-              <section className="glass-card p-8 rounded-3xl group">
-                <div className="flex items-center gap-3 mb-6">
                   <div className="p-3 rounded-2xl bg-purple-500/20 text-purple-400">
                     <Zap size={24} />
                   </div>
@@ -383,6 +354,35 @@ function ResumeBuilder() {
                     </div>
                   </div>
                 )}
+              </section>
+
+              <section className="glass-card p-8 rounded-3xl group border-indigo-500/20 border">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 rounded-2xl bg-rose-500/20 text-rose-400">
+                    <Layers size={24} />
+                  </div>
+                  <h2 className="text-2xl font-bold">Choose Template</h2>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  {TEMPLATES.map((tmpl) => {
+                    const Icon = tmpl.icon
+                    return (
+                      <button
+                        key={tmpl.id}
+                        type="button"
+                        onClick={() => setSelectedTemplate(tmpl.id)}
+                        className={`p-4 rounded-2xl border-2 transition-all ${
+                          selectedTemplate === tmpl.id 
+                            ? 'border-indigo-500 bg-indigo-500/20' 
+                            : 'border-slate-700 hover:border-slate-600'
+                        }`}
+                      >
+                        <Icon size={24} className={`mx-auto mb-2 ${selectedTemplate === tmpl.id ? 'text-indigo-400' : 'text-slate-500'}`} />
+                        <span className="text-sm font-medium block">{tmpl.name}</span>
+                      </button>
+                    )
+                  })}
+                </div>
               </section>
 
               <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-5 rounded-3xl text-xl font-bold transition-all transform hover:scale-[1.02] shadow-[0_20px_50px_rgba(99,102,241,0.3)]">
